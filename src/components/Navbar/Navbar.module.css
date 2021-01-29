@@ -1,0 +1,12 @@
+.navbarWrapper {
+    grid-area: nav;
+    background-color: #063388;
+    padding: 20px;
+}
+.link a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+.link .active {
+    color: red;
+}

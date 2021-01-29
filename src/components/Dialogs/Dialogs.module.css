@@ -1,0 +1,22 @@
+.dialogsPage {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    color: whitesmoke;
+}
+.dialogsWrapper {
+    padding: 20px;
+}
+.dialog .active {
+    color: red;
+}
+.dialog a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+.messagesWrapper {
+    padding: 20px;
+}
+
+.sendMessageForm {
+    padding: 10px 0;
+}

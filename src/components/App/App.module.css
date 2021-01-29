@@ -1,0 +1,15 @@
+.appWrapper {
+  display: grid;
+  margin: 0 auto;
+  width: 1200px;
+  grid-template-areas:
+    "head head"
+    "nav cont";
+
+    grid-template-columns: 2fr 10fr;
+    grid-template-rows: 60px 1fr;
+}
+.appContentWrapper {
+    grid-area: cont;
+    background-color: #49498d;
+}
