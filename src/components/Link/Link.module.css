@@ -1,0 +1,7 @@
+.link a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+.link .active {
+    color: red;
+}

@@ -6,13 +6,6 @@
 .dialogsWrapper {
     padding: 20px;
 }
-.dialog .active {
-    color: red;
-}
-.dialog a {
-    color: whitesmoke;
-    text-decoration: none;
-}
 .messagesWrapper {
     padding: 20px;
 }

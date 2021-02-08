@@ -1,32 +1,24 @@
 import React from "react";
 import styles from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
+import {Dialog} from "./Dialog/Dialog";
+import {Message} from "./Message/Message";
 
 export const Dialogs: React.FC = () => {
     return (
         <div className={styles.dialogsPage}>
             <div className={styles.dialogsWrapper}>
-                <div className={styles.dialog}>
-                    <NavLink to={"/dialogs/1"} activeClassName={styles.active}>Dmitri</NavLink>
-                </div>
-                <div className={styles.dialog}>
-                    <NavLink to='/dialogs/2' activeClassName={styles.active}>Victoria</NavLink>
-                </div>
-                <div className={styles.dialog}>
-                    <NavLink to='/dialogs/3' activeClassName={styles.active}>Valery</NavLink>
-                </div>
-                <div className={styles.dialog}>
-                    <NavLink to='/dialogs/4' activeClassName={styles.active}>Pavel</NavLink>
-                </div>
-                <div className={styles.dialog}>
-                    <NavLink to='/dialogs/5' activeClassName={styles.active}>Vlad</NavLink>
-                </div>
+                <Dialog id={1} name={"Dmitri"}/>
+                <Dialog id={2} name={"Victoria"}/>
+                <Dialog id={3} name={"Igor"}/>
+                <Dialog id={4} name={"Sasha_IT-Patsan"}/>
+                <Dialog id={5} name={"Sveta"}/>
             </div>
 
             <div className={styles.messagesWrapper}>
-                <div className={styles.message}>Hi!</div>
-                <div className={styles.message}>How is your</div>
-                <div className={styles.message}>Good</div>
+                <Message id={1} message={"How are you, Sasha?"}/>
+                <Message id={2} message={"Good. Are you?"}/>
+                <Message id={3} message={"Good"}/>
 
                 <div className={styles.sendMessageForm}>
                     <textarea placeholder="Write new message"/>
