@@ -3,12 +3,12 @@ import s from "./Link.module.css";
 import {NavLink} from "react-router-dom";
 
 type PropsType = {
-    id?: string
+    id?: number
     path: string
     linkLabel: string
 }
 
-const Link: React.FC <PropsType> = (props) => {
+const Link = (props: PropsType) => {
     return (
         <div className={s.link}>
             <NavLink to={props.path} activeClassName={s.active}>{props.linkLabel}</NavLink>
