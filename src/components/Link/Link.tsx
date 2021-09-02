@@ -3,7 +3,7 @@ import s from "./Link.module.css";
 import {NavLink} from "react-router-dom";
 
 type PropsType = {
-    id?: number
+    id: number
     path: string
     linkLabel: string
 }

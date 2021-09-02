@@ -3,9 +3,11 @@
     grid-template-columns: 2fr 10fr;
     color: whitesmoke;
 }
+.dialogsWrapper > .title {}
 .dialogsWrapper {
     padding: 20px;
 }
+.messagesWrapper > .title {}
 .messagesWrapper {
     padding: 20px;
 }

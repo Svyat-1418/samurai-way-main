@@ -11,9 +11,15 @@ export const Dialog = (props: PropsType) => {
     const path = "/dialogs/"
     return (
         <div className={styles.dialog}>
-            <NavLink to={`${path}${props.id}`} activeClassName={styles.active}>
-                {props.name}
-            </NavLink>
+            <div className={styles.dialogInfo}>
+                <div className={styles.dialogAva}>{props.name.charAt(0)}</div>
+                <div className={styles.dialogName}>
+                    <NavLink to={`${path}${props.id}`}>
+                        {props.name}
+                    </NavLink>
+                </div>
+            </div>
+            {/*<UserInfo id={props.id} name={props.name} />*/}
         </div>
     )
 }

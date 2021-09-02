@@ -1,6 +1,5 @@
 import React from "react";
 import styles from './Dialogs.module.css';
-import {NavLink} from "react-router-dom";
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 
@@ -18,7 +17,7 @@ export const Dialogs: React.FC = () => {
     const dialogs: Array<DialogType> = [
         {id: 1, name: "Dmitri"},
         {id: 2, name: "Victoria"},
-        {id: 3, name: "Igor"},
+            {id: 3, name: "Igor"},
         {id: 4, name: "Sasha_IT-Patsan"},
         {id: 5, name: "Sveta"}
     ]
@@ -31,18 +30,13 @@ export const Dialogs: React.FC = () => {
     return (
         <div className={styles.dialogsPage}>
             <div className={styles.dialogsWrapper}>
-                <Dialog id={dialogs[0].id} name={dialogs[0].name}/>
-                <Dialog id={dialogs[1].id} name={dialogs[1].name}/>
-                <Dialog id={dialogs[2].id} name={dialogs[2].name}/>
-                <Dialog id={dialogs[3].id} name={dialogs[3].name}/>
-                <Dialog id={dialogs[4].id} name={dialogs[4].name}/>
+                <h3 className={styles.title}>Dialogs</h3>
+                {dialogs.map(d => <Dialog key={d.id} id={d.id} name={d.name}/>)}
             </div>
 
             <div className={styles.messagesWrapper}>
-                <Message id={messages[0].id} message={messages[0].message}/>
-                <Message id={messages[1].id} message={messages[1].message}/>
-                <Message id={messages[2].id} message={messages[2].message}/>
-
+                <h3 className={styles.title}>Messages</h3>
+                {messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)}
 
                 <div className={styles.sendMessageForm}>
                     <textarea placeholder="Write new message"/>

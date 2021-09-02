@@ -1,13 +1,5 @@
-.dialog {}
-.dialog .active {
-    color: red;
-}
-.dialog a {
-    color: whitesmoke;
-    text-decoration: none;
-}
-.dialogInfo {}
-.dialogAva {
+.friend {}
+.friendAva {
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -18,6 +10,10 @@
     margin: 5px 10px 0 0;
     line-height: 30px;
 }
-.dialogName {
+.friendName {
     display: inline-block;
+}
+.friendName a {
+    color: whitesmoke;
+    text-decoration: none;
 }

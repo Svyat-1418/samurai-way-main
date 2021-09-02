@@ -12,7 +12,8 @@ export const MyPosts = () => {
 
     const posts: Array<PostType> = [
         {id: 1, message: "It is my first typescript project", likesCount: 12},
-        {id: 2, message: "I like typescript", likesCount: 10}
+        {id: 2, message: "I like typescript", likesCount: 10},
+        {id: 3, message: "I like ReactJS", likesCount: 10}
     ]
 
     return (
@@ -26,8 +27,7 @@ export const MyPosts = () => {
             </div>
 
             <div className={styles.posts}>
-                <Post id={posts[0].id} message={posts[0].message} likesCount={posts[0].likesCount}/>
-                <Post id={posts[1].id} message={posts[1].message} likesCount={posts[1].likesCount}/>
+                {posts.map(p => <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>)}
             </div>
         </div>
     )

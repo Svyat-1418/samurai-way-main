@@ -3,3 +3,7 @@
     background-color: #063388;
     padding: 20px;
 }
+.friendsWrapper {
+    color: whitesmoke;
+}
+.friendsWrapper > .title {}
