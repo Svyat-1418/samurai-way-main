@@ -8,25 +8,33 @@ import {Music} from "../Music/Music";
 import {Settings} from '../Settings/Settings';
 import {Dialogs} from "../Dialogs/Dialogs";
 import {Profile} from "../Profile/Profile";
+import {DialogType, FriendType, LinkType, MessageType, PostType} from "../../index";
 
-const App = () => {
+type PropsType = {
+    posts: Array<PostType>
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    links: Array<LinkType>
+    friends: Array<FriendType>
+}
+
+const App = (props: PropsType) => {
   return (
       <div className={styles.appWrapper}>
           <Header/>
-          <Navbar/>
+          <Navbar links={props.links} friends={props.friends}/>
         <div className={styles.appContentWrapper}>
           <Route path="/news" component={News}/>
           <Route path="/music" component={Music}/>
           <Route path="/settings" component={Settings}/>
-          <Route path="/profile" component={Profile}/>
 
-            {/*<Route path='/profile/span' component={Profile}/>
-                    span Route ignore and show Profile*/}
-            {/*<Route exact path='/profile' component={Profile}/>
-                    when used exact path and URL has other symbols (symbols, which
-                     has not value of exact path) or / , Route dose not show Profile*/}
-
-            <Route path="/dialogs" component={Dialogs}/>
+          <Route path="/profile" render={() => <Profile
+              posts={props.posts}/>}
+          />
+          <Route path="/dialogs" render={() => <Dialogs
+              dialogs={props.dialogs}
+              messages={props.messages}/>}
+          />
         </div>
       </div>
   )

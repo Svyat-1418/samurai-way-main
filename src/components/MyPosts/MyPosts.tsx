@@ -1,21 +1,13 @@
 import React from "react";
 import styles from "./MyPosts.module.css"
 import {Post} from "../Post/Post";
+import {PostType} from "../../index";
 
-type PostType = {
-    id: number
-    message: string
-    likesCount: number
+type PropsType = {
+    posts: Array<PostType>
 }
 
-export const MyPosts = () => {
-
-    const posts: Array<PostType> = [
-        {id: 1, message: "It is my first typescript project", likesCount: 12},
-        {id: 2, message: "I like typescript", likesCount: 10},
-        {id: 3, message: "I like ReactJS", likesCount: 10}
-    ]
-
+export const MyPosts = (props: PropsType) => {
     return (
         <div className={styles.postsWrapper}>
             <h3>My posts</h3>
@@ -27,7 +19,7 @@ export const MyPosts = () => {
             </div>
 
             <div className={styles.posts}>
-                {posts.map(p => <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>)}
+                {props.posts.map(p => <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>)}
             </div>
         </div>
     )
