@@ -8,13 +8,20 @@ type PropsType = {
 }
 
 export const MyPosts = (props: PropsType) => {
+
+    const newPostElement = React.createRef<HTMLTextAreaElement>()
+    const addPostHandler = () => alert(newPostElement.current?.value)
+
     return (
         <div className={styles.postsWrapper}>
             <h3>My posts</h3>
             <div>
-                <textarea placeholder="What new?"/>
+                <textarea
+                    placeholder="What new?"
+                    ref={newPostElement}
+                />
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPostHandler}>Add post</button>
                 </div>
             </div>
 

@@ -9,6 +9,10 @@ type PropsType = {
 }
 
 export const Dialogs = (props: PropsType) => {
+
+    const newMessageElement = React.createRef<HTMLTextAreaElement>()
+    const sendMessageHandler = () => alert(newMessageElement.current?.value)
+
     return (
         <div className={styles.dialogsPage}>
             <div className={styles.dialogsWrapper}>
@@ -21,9 +25,11 @@ export const Dialogs = (props: PropsType) => {
                 {props.state.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)}
 
                 <div className={styles.sendMessageForm}>
-                    <textarea placeholder="Write new message"/>
+                    <textarea placeholder="Write new message"
+                        ref={newMessageElement}
+                    />
                     <div>
-                        <button>Send</button>
+                        <button onClick={sendMessageHandler}>Send</button>
                     </div>
                 </div>
             </div>
