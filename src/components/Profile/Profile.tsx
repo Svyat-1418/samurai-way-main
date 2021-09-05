@@ -6,13 +6,16 @@ import {ProfilePageType} from "../../redux/state";
 
 type PropsType = {
     state: ProfilePageType
+    addPost: (message: string) => void
 }
 
 export const Profile = (props: PropsType) => {
     return (
         <div className={styles.profilePage}>
             <ProfileInfo/>
-            <MyPosts posts={props.state.posts}/>
+            <MyPosts posts={props.state.posts}
+                     addPost={props.addPost}
+            />
         </div>
     )
 }

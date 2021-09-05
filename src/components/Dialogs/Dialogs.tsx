@@ -6,12 +6,17 @@ import {DialogsPageType} from "../../redux/state";
 
 type PropsType = {
     state:DialogsPageType
+    sendMessage: (message: string) => void
 }
 
 export const Dialogs = (props: PropsType) => {
 
     const newMessageElement = React.createRef<HTMLTextAreaElement>()
-    const sendMessageHandler = () => alert(newMessageElement.current?.value)
+    const sendMessageHandler = () => {
+        if (newMessageElement.current) {
+            props.sendMessage(newMessageElement.current.value)
+        }
+    }
 
     return (
         <div className={styles.dialogsPage}>

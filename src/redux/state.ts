@@ -76,3 +76,19 @@ export const state: StateType = {
         ]
     }
 }
+
+export const addPost = (message: string) => {
+    const newPost: PostType = {
+        id: 10,
+        message,
+        likesCount: 0
+    }
+    state.profilePage.posts.push(newPost)
+}
+export const sendMessage = (message: string) => {
+    const newMessage: MessageType = {
+        id: 10,
+        message
+    }
+    state.dialogsPage.messages.push(newMessage)
+}

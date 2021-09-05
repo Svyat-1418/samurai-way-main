@@ -5,12 +5,17 @@ import {PostType} from "../../redux/state";
 
 type PropsType = {
     posts: Array<PostType>
+    addPost: (message: string) => void
 }
 
 export const MyPosts = (props: PropsType) => {
 
     const newPostElement = React.createRef<HTMLTextAreaElement>()
-    const addPostHandler = () => alert(newPostElement.current?.value)
+    const addPostHandler = () => {
+        if (newPostElement.current) {
+            props.addPost(newPostElement.current.value)
+        }
+    }
 
     return (
         <div className={styles.postsWrapper}>
