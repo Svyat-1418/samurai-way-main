@@ -7,9 +7,11 @@ export type StateType = {
 }
 
 export type ProfilePageType = {
+    newPostText: string
     posts: Array<PostType>
 }
 export type DialogsPageType = {
+    newMessageText: string
     dialogs: Array<DialogType>
     messages: Array<MessageType>
 }
@@ -43,6 +45,7 @@ export type FriendType = {
 
 export const state: StateType = {
     profilePage: {
+        newPostText: "",
         posts: [
             {id: 1, message: "It is my first typescript project", likesCount: 12},
             {id: 2, message: "I like typescript", likesCount: 10},
@@ -50,6 +53,7 @@ export const state: StateType = {
         ]
     },
     dialogsPage: {
+        newMessageText: "",
         dialogs: [
             {id: 1, name: "Dmitri"},
             {id: 2, name: "Victoria"},
@@ -79,20 +83,34 @@ export const state: StateType = {
     }
 }
 
-export const addPost = (message: string) => {
+export const addPost = () => {
     const newPost: PostType = {
         id: 10,
-        message,
+        message: state.profilePage.newPostText,
         likesCount: 0
     }
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ""
     rerenderEntireTree(state)
 }
-export const sendMessage = (message: string) => {
+export const sendMessage = () => {
     const newMessage: MessageType = {
         id: 10,
-        message
+        message: state.dialogsPage.newMessageText
     }
     state.dialogsPage.messages.push(newMessage)
+    state.dialogsPage.newMessageText = ""
     rerenderEntireTree(state)
 }
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
+    rerenderEntireTree(state)
+}
+export const updateNewMessageText = (newText: string) => {
+    state.dialogsPage.newMessageText = newText
+    rerenderEntireTree(state)
+}
+
+// @ts-ignore
+window.state = state

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import styles from './Dialogs.module.css';
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
@@ -6,16 +6,15 @@ import {DialogsPageType} from "../../redux/state";
 
 type PropsType = {
     state: DialogsPageType
-    sendMessage: (message: string) => void
+    sendMessage: () => void
+    updateNewMessageText: (newText: string) => void
 }
 
 export const Dialogs = (props: PropsType) => {
-
-    const newMessageElement = React.createRef<HTMLTextAreaElement>()
-    const sendMessageHandler = () => {
-        if (newMessageElement.current) {
-            props.sendMessage(newMessageElement.current.value)
-        }
+    const sendMessageHandler = () => props.sendMessage()
+    const updateNewMessageTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const text = e.currentTarget.value
+        props.updateNewMessageText(text)
     }
 
     return (
@@ -31,7 +30,8 @@ export const Dialogs = (props: PropsType) => {
 
                 <div className={styles.sendMessageForm}>
                     <textarea placeholder="Write new message"
-                        ref={newMessageElement}
+                              onChange={updateNewMessageTextHandler}
+                              value={props.state.newMessageText}
                     />
                     <div>
                         <button onClick={sendMessageHandler}>Send</button>
