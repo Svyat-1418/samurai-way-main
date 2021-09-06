@@ -5,7 +5,7 @@ import {Message} from "./Message/Message";
 import {DialogsPageType} from "../../redux/state";
 
 type PropsType = {
-    state:DialogsPageType
+    state: DialogsPageType
     sendMessage: (message: string) => void
 }
 
