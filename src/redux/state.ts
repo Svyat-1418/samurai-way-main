@@ -1,5 +1,3 @@
-import {rerenderEntireTree} from "../render"
-
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -110,6 +108,12 @@ export const updateNewPostText = (newText: string) => {
 export const updateNewMessageText = (newText: string) => {
     state.dialogsPage.newMessageText = newText
     rerenderEntireTree(state)
+}
+
+let rerenderEntireTree = (state: StateType) => console.log("rerenderEntireTree was called")
+
+export const subscribe = (observer: (state: StateType) => void) => {
+    rerenderEntireTree = observer
 }
 
 // @ts-ignore
