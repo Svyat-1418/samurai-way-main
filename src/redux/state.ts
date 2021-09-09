@@ -40,81 +40,93 @@ export type FriendType = {
     id: number
     name: string
 }
-
-export const state: StateType = {
-    profilePage: {
-        newPostText: "",
-        posts: [
-            {id: 1, message: "It is my first typescript project", likesCount: 12},
-            {id: 2, message: "I like typescript", likesCount: 10},
-            {id: 3, message: "I like ReactJS", likesCount: 10}
-        ]
+export type StoreType = {
+    _state: StateType
+    _callSubscriber: (state: StateType) => void
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+    sendMessage: () => void
+    updateNewMessageText: (newText: string) => void
+    getState: () => StateType
+    subscribe: (observer: (state: StateType) => void) => void
+}
+export const store: StoreType = {
+    _state: {
+        profilePage: {
+            newPostText: "",
+            posts: [
+                {id: 1, message: "It is my first typescript project", likesCount: 12},
+                {id: 2, message: "I like typescript", likesCount: 10},
+                {id: 3, message: "I like ReactJS", likesCount: 10}
+            ]
+        },
+        dialogsPage: {
+            newMessageText: "",
+            dialogs: [
+                {id: 1, name: "Dmitri"},
+                {id: 2, name: "Victoria"},
+                {id: 3, name: "Igor"},
+                {id: 4, name: "Sasha_IT-Patsan"},
+                {id: 5, name: "Sveta"}
+            ],
+            messages: [
+                {id: 1, message: "How are you, Sasha?"},
+                {id: 2, message: "Good. Are you?"},
+                {id: 3, message: "Good"}
+            ]
+        },
+        navbar: {
+            links: [
+                {id: 1, path: "/profile", linkLabel: "Profile"},
+                {id: 2, path: "/dialogs", linkLabel: "Dialogs"},
+                {id: 3, path: "/news", linkLabel: "News"},
+                {id: 4, path: "/music", linkLabel: "Music"},
+                {id: 5, path: "/settings", linkLabel: "Settings"},
+            ],
+            friends: [
+                {id: 2, name: "Victoria"},
+                {id: 3, name: "Igor"},
+                {id: 4, name: "Sasha_IT-Patsan"}
+            ]
+        }
     },
-    dialogsPage: {
-        newMessageText: "",
-        dialogs: [
-            {id: 1, name: "Dmitri"},
-            {id: 2, name: "Victoria"},
-            {id: 3, name: "Igor"},
-            {id: 4, name: "Sasha_IT-Patsan"},
-            {id: 5, name: "Sveta"}
-        ],
-        messages: [
-            {id: 1, message: "How are you, Sasha?"},
-            {id: 2, message: "Good. Are you?"},
-            {id: 3, message: "Good"}
-        ]
+    _callSubscriber (state: StateType) {
+        console.log("rerenderEntireTree was called")
     },
-    navbar: {
-        links: [
-            {id: 1, path: "/profile", linkLabel: "Profile"},
-            {id: 2, path: "/dialogs", linkLabel: "Dialogs"},
-            {id: 3, path: "/news", linkLabel: "News"},
-            {id: 4, path: "/music", linkLabel: "Music"},
-            {id: 5, path: "/settings", linkLabel: "Settings"},
-        ],
-        friends: [
-            {id: 2, name: "Victoria"},
-            {id: 3, name: "Igor"},
-            {id: 4, name: "Sasha_IT-Patsan"}
-        ]
+    addPost () {
+        const newPost: PostType = {
+            id: 10,
+            message: this._state.profilePage.newPostText,
+            likesCount: 0
+        }
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostText = ""
+        this._callSubscriber(this._state)
+    },
+    updateNewPostText (newText: string) {
+        this._state.profilePage.newPostText = newText
+        this._callSubscriber(this._state)
+    },
+    sendMessage () {
+        const newMessage: MessageType = {
+            id: 10,
+            message: this._state.dialogsPage.newMessageText
+        }
+        this._state.dialogsPage.messages.push(newMessage)
+        this._state.dialogsPage.newMessageText = ""
+        this._callSubscriber(this._state)
+    },
+    updateNewMessageText (newText: string) {
+        this._state.dialogsPage.newMessageText = newText
+        this._callSubscriber(this._state)
+    },
+    getState () {
+        return this._state
+    },
+    subscribe (observer: (state: StateType) => void) {
+        this._callSubscriber = observer
     }
-}
-
-export const addPost = () => {
-    const newPost: PostType = {
-        id: 10,
-        message: state.profilePage.newPostText,
-        likesCount: 0
-    }
-    state.profilePage.posts.push(newPost)
-    state.profilePage.newPostText = ""
-    rerenderEntireTree(state)
-}
-export const sendMessage = () => {
-    const newMessage: MessageType = {
-        id: 10,
-        message: state.dialogsPage.newMessageText
-    }
-    state.dialogsPage.messages.push(newMessage)
-    state.dialogsPage.newMessageText = ""
-    rerenderEntireTree(state)
-}
-
-export const updateNewPostText = (newText: string) => {
-    state.profilePage.newPostText = newText
-    rerenderEntireTree(state)
-}
-export const updateNewMessageText = (newText: string) => {
-    state.dialogsPage.newMessageText = newText
-    rerenderEntireTree(state)
-}
-
-let rerenderEntireTree = (state: StateType) => console.log("rerenderEntireTree was called")
-
-export const subscribe = (observer: (state: StateType) => void) => {
-    rerenderEntireTree = observer
 }
 
 // @ts-ignore
-window.state = state
+window.store = store
