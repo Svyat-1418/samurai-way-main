@@ -8,14 +8,11 @@ import {Music} from "../Music/Music";
 import {Settings} from '../Settings/Settings';
 import {Dialogs} from "../Dialogs/Dialogs";
 import {Profile} from "../Profile/Profile";
-import {StateType} from "../../redux/state";
+import {ActionsType, StateType} from "../../redux/state";
 
 type PropsType = {
     state: StateType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
-    sendMessage: () => void
-    updateNewMessageText: (newText: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
 const App = (props: PropsType) => {
@@ -31,15 +28,13 @@ const App = (props: PropsType) => {
           <Route path="/profile"
                  render={() => <Profile
                      state={props.state.profilePage}
-                     addPost={props.addPost}
-                     updateNewPostText={props.updateNewPostText}
+                     dispatch={props.dispatch}
                  />}
           />
           <Route path="/dialogs"
                  render={() => <Dialogs
                      state={props.state.dialogsPage}
-                     sendMessage={props.sendMessage}
-                     updateNewMessageText={props.updateNewMessageText}
+                     dispatch={props.dispatch}
                  />}
           />
         </div>

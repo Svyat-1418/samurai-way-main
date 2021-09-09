@@ -2,19 +2,29 @@ import React, {ChangeEvent} from "react";
 import styles from './Dialogs.module.css';
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
-import {DialogsPageType} from "../../redux/state";
+import {
+    ActionsType,
+    AddPostActionType,
+    DialogsPageType,
+    SendMessageActionType,
+    UpdateNewMessageTextActionType
+} from "../../redux/state";
 
 type PropsType = {
     state: DialogsPageType
-    sendMessage: () => void
-    updateNewMessageText: (newText: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
 export const Dialogs = (props: PropsType) => {
-    const sendMessageHandler = () => props.sendMessage()
+    const sendMessageHandler = () => {
+        const action: SendMessageActionType = {type: "SEND-MESSAGE"}
+        props.dispatch(action)
+    }
     const updateNewMessageTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
-        props.updateNewMessageText(text)
+        const action: UpdateNewMessageTextActionType =
+            {type:"UPDATE-NEW-MESSAGE-TEXT" as const, newText: text};
+        props.dispatch(action)
     }
 
     return (
