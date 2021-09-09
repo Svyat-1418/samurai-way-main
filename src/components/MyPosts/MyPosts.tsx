@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import styles from "./MyPosts.module.css"
 import {Post} from "../Post/Post";
-import {ActionsType, PostType} from "../../redux/state";
+import {ActionsType, addPostAC, PostType, updateNewPostTextAC} from "../../redux/state";
 
 type PropsType = {
     posts: Array<PostType>
@@ -11,13 +11,11 @@ type PropsType = {
 
 export const MyPosts = (props: PropsType) => {
     const addPostHandler = () => {
-        const action = {type: "ADD-POST" as const};
-        props.dispatch(action)
+        props.dispatch(addPostAC())
     }
     const updateNewPostTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
-        const action = {type: "UPDATE-NEW-POST-TEXT" as const, newText: text};
-        props.dispatch(action)
+        props.dispatch(updateNewPostTextAC(text))
     }
 
     return (

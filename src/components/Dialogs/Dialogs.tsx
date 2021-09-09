@@ -4,10 +4,9 @@ import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 import {
     ActionsType,
-    AddPostActionType,
     DialogsPageType,
-    SendMessageActionType,
-    UpdateNewMessageTextActionType
+    sendMessageAC,
+    updateNewMessageTextAC
 } from "../../redux/state";
 
 type PropsType = {
@@ -17,14 +16,11 @@ type PropsType = {
 
 export const Dialogs = (props: PropsType) => {
     const sendMessageHandler = () => {
-        const action: SendMessageActionType = {type: "SEND-MESSAGE"}
-        props.dispatch(action)
+        props.dispatch(sendMessageAC())
     }
     const updateNewMessageTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
-        const action: UpdateNewMessageTextActionType =
-            {type:"UPDATE-NEW-MESSAGE-TEXT" as const, newText: text};
-        props.dispatch(action)
+        props.dispatch(updateNewMessageTextAC(text))
     }
 
     return (
