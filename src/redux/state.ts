@@ -1,36 +1,14 @@
-const ADD_POST = "ADD-POST"
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
-const SEND_MESSAGE = "SEND-MESSAGE"
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
+import {profileReducer, ProfileReducerActionsType} from "./profileReducer"
+import {dialogsReducer, DialogsReducerActionsType} from "./dialogsReducer";
+import {sidebarReducer} from "./sidebarReducer";
 
-export type AddPostActionType = {
-    type: typeof ADD_POST
-}
-export type UpdateNewPostTextActionType = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    newText: string
-}
-export type SendMessageActionType = {
-    type: typeof SEND_MESSAGE
-}
-export type UpdateNewMessageTextActionType = {
-    type: typeof UPDATE_NEW_MESSAGE_TEXT
-    newText: string
-}
 export type ActionsType =
-    AddPostActionType |
-    UpdateNewPostTextActionType |
-    SendMessageActionType |
-    UpdateNewMessageTextActionType
+    ProfileReducerActionsType |
+    DialogsReducerActionsType
 
 export type StoreType = {
     _state: StateType
     _callSubscriber: (state: StateType) => void
-
-    //addPost: () => void
-    //updateNewPostText: (newText: string) => void
-    //sendMessage: () => void
-    //updateNewMessageText: (newText: string) => void
 
     dispatch: (action: ActionsType) => void
 
@@ -41,7 +19,7 @@ export type StoreType = {
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
-    navbar: NavbarType
+    sidebar: SidebarType
 }
 export type ProfilePageType = {
     newPostText: string
@@ -52,7 +30,7 @@ export type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
 }
-export type NavbarType = {
+export type SidebarType = {
     links: Array<LinkType>
     friends: Array<FriendType>
 }
@@ -105,7 +83,7 @@ export const store: StoreType = {
                 {id: 3, message: "Good"}
             ]
         },
-        navbar: {
+        sidebar: {
             links: [
                 {id: 1, path: "/profile", linkLabel: "Profile"},
                 {id: 2, path: "/dialogs", linkLabel: "Dialogs"},
@@ -125,30 +103,11 @@ export const store: StoreType = {
     },
 
     dispatch(action: ActionsType) {
-        if (action.type === ADD_POST) {
-            const newPost: PostType = {
-                id: 10,
-                message: this._state.profilePage.newPostText,
-                likesCount: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ""
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber(this._state)
-        } else if (action.type === SEND_MESSAGE) {
-            const newMessage: MessageType = {
-                id: 10,
-                message: this._state.dialogsPage.newMessageText
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ""
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.newText
-            this._callSubscriber(this._state)
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+        this._callSubscriber(this._state)
     },
 
     getState () {
@@ -158,13 +117,6 @@ export const store: StoreType = {
         this._callSubscriber = observer
     }
 }
-
-export const addPostAC = (): AddPostActionType => ({type: ADD_POST})
-export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionType =>
-    ({type: UPDATE_NEW_POST_TEXT, newText})
-export const sendMessageAC = (): SendMessageActionType => ({type: SEND_MESSAGE})
-export const updateNewMessageTextAC = (newText: string): UpdateNewMessageTextActionType =>
-    ({type: UPDATE_NEW_MESSAGE_TEXT, newText})
 
 // @ts-ignore
 window.store = store

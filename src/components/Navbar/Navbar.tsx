@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./Navbar.module.css";
 import Link from "../Link/Link";
 import {Friend} from "../Friends/Friends";
-import {NavbarType} from "../../redux/state";
+import {SidebarType} from "../../redux/state";
 
 type PropsType = {
-    state: NavbarType
+    state: SidebarType
 }
 
 export const Navbar = (props: PropsType) => {

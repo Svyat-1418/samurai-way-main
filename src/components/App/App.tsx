@@ -19,7 +19,7 @@ const App = (props: PropsType) => {
   return (
       <div className={styles.appWrapper}>
           <Header/>
-          <Navbar state={props.state.navbar}/>
+          <Navbar state={props.state.sidebar}/>
         <div className={styles.appContentWrapper}>
           <Route path="/news" component={News}/>
           <Route path="/music" component={Music}/>
