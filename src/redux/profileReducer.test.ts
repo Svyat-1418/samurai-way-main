@@ -1,7 +1,9 @@
-import {addPostAC, profileReducer, updateNewPostTextAC} from "./profileReducer"
-import {ProfilePageType} from "./state";
+import {addPostAC,
+    InitialStateType,
+    profileReducer,
+    updateNewPostTextAC} from "./profileReducer"
 
-let startState: ProfilePageType
+let startState: InitialStateType
 
 beforeEach(() => {
     startState = {

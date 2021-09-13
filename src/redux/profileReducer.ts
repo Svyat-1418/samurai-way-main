@@ -1,5 +1,3 @@
-import {ActionsType, PostType, ProfilePageType} from "./state";
-
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 
@@ -10,11 +8,26 @@ export type UpdateNewPostTextActionType = {
     type: typeof UPDATE_NEW_POST_TEXT
     newText: string
 }
-export type ProfileReducerActionsType =
+export type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
+type ActionsType =
     AddPostActionType |
     UpdateNewPostTextActionType
 
-export const profileReducer = (state: ProfilePageType, action: ActionsType): ProfilePageType => {
+const initialState = {
+    newPostText: "",
+    posts: [
+        {id: 1, message: "It is my first typescript project", likesCount: 12},
+        {id: 2, message: "I like typescript", likesCount: 10},
+        {id: 3, message: "I like ReactJS", likesCount: 10}
+    ] as Array<PostType>
+}
+export type InitialStateType = typeof initialState
+
+export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "ADD-POST": {
             const newPost: PostType = {

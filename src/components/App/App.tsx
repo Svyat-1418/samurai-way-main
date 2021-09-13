@@ -8,11 +8,20 @@ import {Music} from "../Music/Music";
 import {Settings} from '../Settings/Settings';
 import {Dialogs} from "../Dialogs/Dialogs";
 import {Profile} from "../Profile/Profile";
-import {ActionsType, StateType} from "../../redux/state";
+import {AppRootStateType} from "../../redux/reduxStore";
+import {AddPostActionType, UpdateNewPostTextActionType} from "../../redux/profileReducer";
+import {SendMessageActionType, UpdateNewMessageTextActionType } from '../../redux/dialogsReducer';
+
+export type DispatchActionsType =
+    AddPostActionType |
+    UpdateNewPostTextActionType |
+    SendMessageActionType |
+    UpdateNewMessageTextActionType
+
 
 type PropsType = {
-    state: StateType
-    dispatch: (action: ActionsType) => void
+    state: AppRootStateType
+    dispatch: (action: DispatchActionsType) => void
 }
 
 const App = (props: PropsType) => {
