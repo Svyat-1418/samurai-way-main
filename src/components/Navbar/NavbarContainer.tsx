@@ -1,14 +1,16 @@
 import React from "react";
 import {InitialStateType} from "../../redux/sidebarReducer";
 import {Navbar} from "./Navbar";
-import {ReduxStoreType} from "../../redux/reduxStore";
+import {StoreContext} from "../../StoreContext";
 
-type PropsType = {
-   store: ReduxStoreType
-}
+export const NavbarContainer = () => {
+    return (
+        <StoreContext.Consumer>
+            {(store) => {
+                const state: InitialStateType = store.getState().sidebar
+                return <Navbar state={state}/>
+            }}
+        </StoreContext.Consumer>
+    )
 
-export const NavbarContainer = (props: PropsType) => {
-    const state: InitialStateType = props.store.getState().sidebar
-
-    return <Navbar state={state}/>
 }

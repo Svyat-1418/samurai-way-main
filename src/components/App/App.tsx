@@ -18,25 +18,23 @@ export type DispatchActionsType =
     SendMessageActionType |
     UpdateNewMessageTextActionType
 
-type PropsType = {
-    store: ReduxStoreType
-}
 
-const App = (props: PropsType) => {
+
+const App = () => {
   return (
       <div className={styles.appWrapper}>
           <Header/>
-          <NavbarContainer store={props.store}/>
+          <NavbarContainer />
         <div className={styles.appContentWrapper}>
           <Route path="/news" component={News}/>
           <Route path="/music" component={Music}/>
           <Route path="/settings" component={Settings}/>
 
           <Route path="/profile"
-                 render={() => <Profile store={props.store}/>}
+                 render={() => <Profile/>}
           />
           <Route path="/dialogs"
-                 render={() => <DialogsContainer store={props.store}/>}
+                 render={() => <DialogsContainer />}
           />
         </div>
       </div>
