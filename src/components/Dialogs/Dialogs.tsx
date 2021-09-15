@@ -2,21 +2,21 @@ import React, {ChangeEvent} from "react";
 import styles from './Dialogs.module.css';
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
-import {InitialStateType, sendMessageAC, updateNewMessageTextAC} from "../../redux/dialogsReducer";
-import {DispatchActionsType} from "../App/App";
+import {InitialStateType} from "../../redux/dialogsReducer";
 
 type PropsType = {
     state: InitialStateType
-    dispatch: (action: DispatchActionsType) => void
+    sendMessage: () => void
+    updateNewMessageText: (newText: string) => void
 }
 
 export const Dialogs = (props: PropsType) => {
     const sendMessageHandler = () => {
-        props.dispatch(sendMessageAC())
+        props.sendMessage()
     }
     const updateNewMessageTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
-        props.dispatch(updateNewMessageTextAC(text))
+        props.updateNewMessageText(text)
     }
 
     return (

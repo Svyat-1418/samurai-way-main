@@ -1,3 +1,4 @@
+
 export type LinkType = {
     id: number
     path: string

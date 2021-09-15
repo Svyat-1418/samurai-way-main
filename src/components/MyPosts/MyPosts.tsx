@@ -1,22 +1,22 @@
 import React, {ChangeEvent} from "react";
 import styles from "./MyPosts.module.css"
 import {Post} from "../Post/Post";
-import {addPostAC, PostType, updateNewPostTextAC} from "../../redux/profileReducer";
-import {DispatchActionsType} from "../App/App";
+import {PostType} from "../../redux/profileReducer";
 
 type PropsType = {
     posts: Array<PostType>
     newPostText: string
-    dispatch: (action: DispatchActionsType) => void
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
 }
 
 export const MyPosts = (props: PropsType) => {
     const addPostHandler = () => {
-        props.dispatch(addPostAC())
+        props.addPost()
     }
     const updateNewPostTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
-        props.dispatch(updateNewPostTextAC(text))
+        props.updateNewPostText(text)
     }
 
     return (
