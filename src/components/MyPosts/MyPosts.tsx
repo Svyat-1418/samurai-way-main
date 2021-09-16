@@ -1,11 +1,10 @@
 import React, {ChangeEvent} from "react";
 import styles from "./MyPosts.module.css"
 import {Post} from "../Post/Post";
-import {PostType} from "../../redux/profileReducer";
+import {InitialStateType} from "../../redux/profileReducer";
 
 type PropsType = {
-    posts: Array<PostType>
-    newPostText: string
+    profilePage: InitialStateType
     addPost: () => void
     updateNewPostText: (newText: string) => void
 }
@@ -26,7 +25,7 @@ export const MyPosts = (props: PropsType) => {
                 <textarea
                     onChange={updateNewPostTextHandler}
                     placeholder="What new?"
-                    value={props.newPostText}
+                    value={props.profilePage.newPostText}
                 />
                 <div>
                     <button onClick={addPostHandler}>Add post</button>
@@ -34,7 +33,7 @@ export const MyPosts = (props: PropsType) => {
             </div>
 
             <div className={styles.posts}>
-                {props.posts.map(p => <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>)}
+                {props.profilePage.posts.map(p => <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>)}
             </div>
         </div>
     )

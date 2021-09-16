@@ -9,7 +9,6 @@ import {Profile} from "../Profile/Profile";
 import {AddPostActionType, UpdateNewPostTextActionType} from "../../redux/profileReducer";
 import {SendMessageActionType, UpdateNewMessageTextActionType } from '../../redux/dialogsReducer';
 import {DialogsContainer} from "../Dialogs/DialogsContainer";
-import { ReduxStoreType } from '../../redux/reduxStore';
 import {NavbarContainer} from "../Navbar/NavbarContainer";
 
 export type DispatchActionsType =

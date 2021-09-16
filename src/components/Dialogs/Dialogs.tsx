@@ -5,7 +5,7 @@ import {Message} from "./Message/Message";
 import {InitialStateType} from "../../redux/dialogsReducer";
 
 type PropsType = {
-    state: InitialStateType
+    dialogsPage: InitialStateType
     sendMessage: () => void
     updateNewMessageText: (newText: string) => void
 }
@@ -23,17 +23,17 @@ export const Dialogs = (props: PropsType) => {
         <div className={styles.dialogsPage}>
             <div className={styles.dialogsWrapper}>
                 <h3 className={styles.title}>Dialogs</h3>
-                {props.state.dialogs.map(d => <Dialog key={d.id} id={d.id} name={d.name}/>)}
+                {props.dialogsPage.dialogs.map(d => <Dialog key={d.id} id={d.id} name={d.name}/>)}
             </div>
 
             <div className={styles.messagesWrapper}>
                 <h3 className={styles.title}>Messages</h3>
-                {props.state.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)}
+                {props.dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)}
 
                 <div className={styles.sendMessageForm}>
                     <textarea placeholder="Write new message"
                               onChange={updateNewMessageTextHandler}
-                              value={props.state.newMessageText}
+                              value={props.dialogsPage.newMessageText}
                     />
                     <div>
                         <button onClick={sendMessageHandler}>Send</button>

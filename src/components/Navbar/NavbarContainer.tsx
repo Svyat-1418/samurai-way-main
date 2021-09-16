@@ -1,16 +1,16 @@
-import React from "react";
+//import React from "react";
 import {InitialStateType} from "../../redux/sidebarReducer";
 import {Navbar} from "./Navbar";
-import {StoreContext} from "../../StoreContext";
+import {connect} from "react-redux";
+import {AppRootStateType} from "../../redux/reduxStore";
 
-export const NavbarContainer = () => {
-    return (
-        <StoreContext.Consumer>
-            {(store) => {
-                const state: InitialStateType = store.getState().sidebar
-                return <Navbar state={state}/>
-            }}
-        </StoreContext.Consumer>
-    )
-
+type MapStateToPropsType = {
+    sidebar: InitialStateType
 }
+
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
+    return {
+        sidebar: state.sidebar
+    }
+}
+export const NavbarContainer = connect(mapStateToProps, () => {}) (Navbar)
