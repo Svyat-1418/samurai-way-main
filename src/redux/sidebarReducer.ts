@@ -13,9 +13,10 @@ const initialState = {
     links: [
         {id: 1, path: "/profile", linkLabel: "Profile"},
         {id: 2, path: "/dialogs", linkLabel: "Dialogs"},
-        {id: 3, path: "/news", linkLabel: "News"},
-        {id: 4, path: "/music", linkLabel: "Music"},
-        {id: 5, path: "/settings", linkLabel: "Settings"},
+        {id: 3, path: "/users", linkLabel: "Users"},
+        {id: 4, path: "/news", linkLabel: "News"},
+        {id: 5, path: "/music", linkLabel: "Music"},
+        {id: 6, path: "/settings", linkLabel: "Settings"},
     ] as Array<LinkType>,
     friends: [
         {id: 2, name: "Victoria"},
