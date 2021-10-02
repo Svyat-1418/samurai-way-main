@@ -1,46 +1,32 @@
 import React from 'react';
 import styles from './Users.module.css';
 import {MapDispatchToPropsType, MapStateToPropsType} from "./UsersContainer";
+import axios from "axios";
+import {UserType} from "../../redux/usersReducer";
+import userPhoto from "./../../assets/images/user-photo.png"
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType
 
+type GetUsersResponseType = {
+    error: string | null
+    totalCount: number
+    items: Array<UserType>
+}
+
 export const Users = (props: PropsType) => {
     if (props.usersPage.users.length === 0) {
-        props.setUsers([
-                {
-                    id: 1,
-                    photoUrl: 'https://lh3.googleusercontent.com/proxy/1fuZiIr5_vK-7Rj9waFb8feVbWniBOyN_zThMnFlunw2UghWCkNW9eT6N7Neh6HrcFBzT5NM51LmU9098iSWchso',
-                    followed: false,
-                    fullName: 'Dmitry',
-                    status: 'I am a boss',
-                    location: {city: 'Minsk', country: 'Belarus'}
-                },
-                {
-                    id: 2,
-                    photoUrl: 'https://lh3.googleusercontent.com/proxy/1fuZiIr5_vK-7Rj9waFb8feVbWniBOyN_zThMnFlunw2UghWCkNW9eT6N7Neh6HrcFBzT5NM51LmU9098iSWchso',
-                    followed: true,
-                    fullName: 'Sasha',
-                    status: 'I am a boss too',
-                    location: {city: 'Moscow', country: 'Russia'}
-                },
-                {
-                    id: 3,
-                    photoUrl: 'https://lh3.googleusercontent.com/proxy/1fuZiIr5_vK-7Rj9waFb8feVbWniBOyN_zThMnFlunw2UghWCkNW9eT6N7Neh6HrcFBzT5NM51LmU9098iSWchso',
-                    followed: false,
-                    fullName: 'Andrew',
-                    status: 'I am a boss too',
-                    location: {city: 'Kiev', country: 'Ukraine'}
-                }
-            ]
-        )
+        axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users`)
+            .then((res) => {
+                props.setUsers(res.data.items)
+            })
     }
 
     return <div className={styles.usersPage}>
         {
             props.usersPage.users.map(u => <div key={u.id}>
                 <span>
-                    <div>
-                        <img src={u.photoUrl}  alt=""/>
+                    <div >
+                        <img src={u.photos.small !== null ? u.photos.small : userPhoto}  alt=""/>
                     </div>
                     <div>
                         {u.followed
@@ -51,12 +37,12 @@ export const Users = (props: PropsType) => {
                 </span>
                 <span>
                     <span>
-                        <div>{u.fullName}</div>
+                        <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
                     <span>
-                        <div>{u.location.country}</div>
-                        <div>{u.location.city}</div>
+                        <div>{"u.location.country"}</div>
+                        <div>{"u.location.city"}</div>
                     </span>
                 </span>
             </div>)
