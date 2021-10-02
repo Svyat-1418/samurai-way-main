@@ -14,14 +14,17 @@ type GetUsersResponseType = {
 }
 
 export const Users = (props: PropsType) => {
-    if (props.usersPage.users.length === 0) {
-        axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users`)
-            .then((res) => {
-                props.setUsers(res.data.items)
-            })
+    const getUsers = () => {
+        if (props.usersPage.users.length === 0) {
+            axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users`)
+                .then((res) => {
+                    props.setUsers(res.data.items)
+                })
+        }
     }
 
     return <div className={styles.usersPage}>
+        <button onClick={getUsers}>Get users</button>
         {
             props.usersPage.users.map(u => <div key={u.id}>
                 <span>
