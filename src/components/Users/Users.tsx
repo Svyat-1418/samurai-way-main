@@ -13,32 +13,32 @@ type GetUsersResponseType = {
     items: Array<UserType>
 }
 
-export const Users = (props: PropsType) => {
-    const getUsers = () => {
-        if (props.usersPage.users.length === 0) {
-            axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users`)
-                .then((res) => {
-                    props.setUsers(res.data.items)
-                })
-        }
+export class Users extends React.Component<PropsType> {
+    constructor(props: PropsType) {
+        super(props);
+
+        axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users`)
+            .then((res) => {
+                this.props.setUsers(res.data.items)
+            })
     }
 
-    return <div className={styles.usersPage}>
-        <button onClick={getUsers}>Get users</button>
-        {
-            props.usersPage.users.map(u => <div key={u.id}>
+    render() {
+        return <div className={styles.usersPage}>
+            {
+                this.props.usersPage.users.map(u => <div key={u.id}>
                 <span>
                     <div >
                         <img src={u.photos.small !== null ? u.photos.small : userPhoto}  alt=""/>
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => { props.unfollow(u.id) }}>Unfollow</button>
-                            : <button onClick={() => { props.follow(u.id) }}>Follow</button>
+                            ? <button onClick={() => { this.props.unfollow(u.id) }}>Unfollow</button>
+                            : <button onClick={() => { this.props.follow(u.id) }}>Follow</button>
                         }
                     </div>
                 </span>
-                <span>
+                    <span>
                     <span>
                         <div>{u.name}</div>
                         <div>{u.status}</div>
@@ -48,7 +48,9 @@ export const Users = (props: PropsType) => {
                         <div>{"u.location.city"}</div>
                     </span>
                 </span>
-            </div>)
-        }
-    </div>
+                </div>)
+            }
+        </div>
+    }
+
 }

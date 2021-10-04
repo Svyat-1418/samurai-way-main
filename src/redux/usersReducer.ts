@@ -2,10 +2,6 @@ const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
-type LocationType = {
-    country: string
-    city: string
-}
 type PhotosType = {
     small: string | null
     large: string | null
