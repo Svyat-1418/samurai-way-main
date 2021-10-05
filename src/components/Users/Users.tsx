@@ -14,9 +14,8 @@ type GetUsersResponseType = {
 }
 
 export class Users extends React.Component<PropsType> {
-    constructor(props: PropsType) {
-        super(props);
-
+    componentDidMount() {
+        alert("componentDidMount")
         axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users`)
             .then((res) => {
                 this.props.setUsers(res.data.items)
