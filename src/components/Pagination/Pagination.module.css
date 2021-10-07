@@ -1,0 +1,14 @@
+.paginationContainer {
+    margin: 10px;
+}
+
+.paginationItem {
+    padding: 3px;
+    border: 1px solid grey;
+}
+.selectedPage {
+    font-weight: bold;
+    background: whitesmoke;
+    border: 1px solid grey;
+}
+

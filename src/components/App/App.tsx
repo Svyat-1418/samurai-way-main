@@ -7,7 +7,12 @@ import {DialogsContainer} from "../Dialogs/DialogsContainer";
 import {UsersContainer} from "../Users/UsersContainer";
 import {AddPostActionType, UpdateNewPostTextActionType} from "../../redux/profileReducer";
 import {SendMessageActionType, UpdateNewMessageTextActionType} from "../../redux/dialogsReducer";
-import {FollowActionType, SetUsersActionType, UnfollowActionType} from "../../redux/usersReducer";
+import {
+    FollowActionType, SetCurrentPageActionType, SetCurrentPortionActionType,
+    SetTotalUsersCountActionType,
+    SetUsersActionType,
+    UnfollowActionType
+} from "../../redux/usersReducer";
 import {NavbarContainer} from "../Navbar/NavbarContainer";
 
 export type DispatchActionsType =
@@ -17,7 +22,10 @@ export type DispatchActionsType =
     UpdateNewMessageTextActionType |
     FollowActionType |
     UnfollowActionType |
-    SetUsersActionType
+    SetUsersActionType |
+    SetTotalUsersCountActionType |
+    SetCurrentPageActionType |
+    SetCurrentPortionActionType
 
 const App = () => {
     return (
