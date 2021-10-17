@@ -1,5 +1,4 @@
-//import React from 'react';
-import {Users} from "./Users";
+import React from 'react';
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {DispatchActionsType} from "../App/App";
@@ -13,6 +12,8 @@ import {
     setTotalCountAC,
     setCurrentPageAC, setCurrentPortionAC
 } from "../../redux/usersReducer";
+import axios from "axios";
+import {Users} from "./Users";
 
 export type MapStateToPropsType = {
     usersPage: InitialStateType
@@ -62,4 +63,42 @@ const mapDispatchToProps = (dispatch: Dispatch<DispatchActionsType>): MapDispatc
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+type GetUsersResponseType = {
+    error: string | null
+    totalCount: number
+    items: Array<UserType>
+}
+
+class UsersAPIComponent extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
+    componentDidMount() {
+        axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then((res) => {
+                this.props.setUsers(res.data.items)
+                this.props.setTotalCount(res.data.totalCount)
+            })
+    }
+
+    onPageChanged = (page: number) => {
+        this.props.setCurrentPage(page)
+        axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then((res) => {
+                this.props.setUsers(res.data.items)
+            })
+    }
+
+    render() {
+        return <Users users={this.props.usersPage.users}
+                      follow={this.props.follow}
+                      unfollow={this.props.unfollow}
+                      onPageChanged={this.onPageChanged}
+                      setCurrentPortion={this.props.setCurrentPortion}
+                      currentPortion={this.props.currentPortion}
+                      pageSize={this.props.pageSize}
+                      totalCount={this.props.totalCount}
+                      currentPage={this.props.currentPage}
+        />
+    }
+
+}
+
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);

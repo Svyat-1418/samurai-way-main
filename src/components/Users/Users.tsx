@@ -1,48 +1,33 @@
-import React from 'react';
-import styles from './Users.module.css';
-import {MapDispatchToPropsType, MapStateToPropsType} from "./UsersContainer";
-import axios from "axios";
-import {UserType} from "../../redux/usersReducer";
-import userPhoto from "./../../assets/images/user-photo.png"
+import styles from "./Users.module.css";
 import {Pagination} from "../Pagination/Pagination";
+import userPhoto from "../../assets/images/user-photo.png";
+import React from "react";
+import {UserType} from "../../redux/usersReducer";
 
-type PropsType = MapStateToPropsType & MapDispatchToPropsType
-
-type GetUsersResponseType = {
-    error: string | null
+type PropsType = {
+    users: Array<UserType>
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     totalCount: number
-    items: Array<UserType>
+    pageSize: number
+    currentPage: number
+    onPageChanged: (page: number) => void
+    setCurrentPortion: (currentPortion: number) => void
+    currentPortion: number
 }
 
-export class Users extends React.Component<PropsType> {
-    componentDidMount() {
-        axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then((res) => {
-                this.props.setUsers(res.data.items)
-                this.props.setTotalCount(res.data.totalCount)
-            })
-    }
-
-    onPageChanged = (page: number) => {
-        this.props.setCurrentPage(page)
-        axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then((res) => {
-                this.props.setUsers(res.data.items)
-            })
-    }
-
-    render() {
-        return <div className={styles.usersPage}>
+export const Users = (props: PropsType) => {
+    return (
+        <div className={styles.usersPage}>
             <Pagination
-                totalCount={this.props.totalCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                onPageChanged={this.onPageChanged}
-                setCurrentPortion={this.props.setCurrentPortion}
-                currentPortion={this.props.currentPortion}
+                totalCount={props.totalCount}
+                pageSize={props.pageSize}
+                currentPage={props.currentPage}
+                onPageChanged={props.onPageChanged}
+                setCurrentPortion={props.setCurrentPortion}
+                currentPortion={props.currentPortion}
             />
-            {
-                this.props.usersPage.users.map(u => <div key={u.id}>
+            {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <img src={u.photos.small !== null ? u.photos.small : userPhoto} alt=""/>
@@ -50,10 +35,10 @@ export class Users extends React.Component<PropsType> {
                     <div>
                         {u.followed
                             ? <button onClick={() => {
-                                this.props.unfollow(u.id)
+                                props.unfollow(u.id)
                             }}>Unfollow</button>
                             : <button onClick={() => {
-                                this.props.follow(u.id)
+                                props.follow(u.id)
                             }}>Follow</button>
                         }
                     </div>
@@ -71,6 +56,5 @@ export class Users extends React.Component<PropsType> {
                 </div>)
             }
         </div>
-    }
-
+    )
 }
