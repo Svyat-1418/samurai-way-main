@@ -5,27 +5,8 @@ import {Profile} from '../Profile/Profile';
 import {Route} from "react-router-dom";
 import {DialogsContainer} from "../Dialogs/DialogsContainer";
 import {UsersContainer} from "../Users/UsersContainer";
-import {AddPostActionType, UpdateNewPostTextActionType} from "../../redux/profileReducer";
-import {SendMessageActionType, UpdateNewMessageTextActionType} from "../../redux/dialogsReducer";
-import {
-    FollowActionType, SetCurrentPageActionType, SetCurrentPortionActionType,
-    SetTotalUsersCountActionType,
-    SetUsersActionType,
-    UnfollowActionType
-} from "../../redux/usersReducer";
-import {NavbarContainer} from "../Navbar/NavbarContainer";
 
-export type DispatchActionsType =
-    AddPostActionType |
-    UpdateNewPostTextActionType |
-    SendMessageActionType |
-    UpdateNewMessageTextActionType |
-    FollowActionType |
-    UnfollowActionType |
-    SetUsersActionType |
-    SetTotalUsersCountActionType |
-    SetCurrentPageActionType |
-    SetCurrentPortionActionType
+import {NavbarContainer} from "../Navbar/NavbarContainer";
 
 const App = () => {
     return (

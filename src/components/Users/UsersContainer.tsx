@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {DispatchActionsType} from "../App/App";
-import {AppRootStateType} from "../../redux/reduxStore";
+import {AllAppActionsType, AppRootStateType} from "../../redux/reduxStore";
 import {
     followAC,
     unfollowAC,
@@ -10,10 +9,13 @@ import {
     UserType,
     InitialStateType,
     setTotalCountAC,
-    setCurrentPageAC, setCurrentPortionAC
+    setCurrentPageAC,
+    setCurrentPortionAC,
+    toggleIsFetchingAC
 } from "../../redux/usersReducer";
 import axios from "axios";
 import {Users} from "./Users";
+import {Preloader} from "../common/Preloader/Preloader";
 
 export type MapStateToPropsType = {
     usersPage: InitialStateType
@@ -21,6 +23,7 @@ export type MapStateToPropsType = {
     currentPage: number
     totalCount: number
     currentPortion: number
+    isFetching: boolean
 }
 export type MapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -29,6 +32,7 @@ export type MapDispatchToPropsType = {
     setTotalCount: (totalCount: number) => void
     setCurrentPage: (currentPage: number) => void
     setCurrentPortion: (currentPortion: number) => void
+    toggleIsFetching: (isFetching: boolean) => void
 }
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
@@ -37,10 +41,11 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
         totalCount: state.usersPage.totalUsersCount,
-        currentPortion: state.usersPage.currentPortion
+        currentPortion: state.usersPage.currentPortion,
+        isFetching: state.usersPage.isFetching
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch<DispatchActionsType>): MapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch<AllAppActionsType>): MapDispatchToPropsType => {
     return {
         follow: (userId: number) => {
             dispatch(followAC(userId));
@@ -59,6 +64,9 @@ const mapDispatchToProps = (dispatch: Dispatch<DispatchActionsType>): MapDispatc
         },
         setCurrentPortion: (currentPortion: number) => {
             dispatch(setCurrentPortionAC(currentPortion))
+        },
+        toggleIsFetching: (isFetching: boolean) => {
+            dispatch(toggleIsFetchingAC(isFetching))
         }
     }
 }
@@ -71,32 +79,41 @@ type GetUsersResponseType = {
 
 class UsersAPIComponent extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
     componentDidMount() {
+        this.props.toggleIsFetching(true)
         axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then((res) => {
                 this.props.setUsers(res.data.items)
                 this.props.setTotalCount(res.data.totalCount)
+                this.props.toggleIsFetching(false)
             })
     }
 
     onPageChanged = (page: number) => {
         this.props.setCurrentPage(page)
+        this.props.toggleIsFetching(true)
         axios.get<GetUsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then((res) => {
                 this.props.setUsers(res.data.items)
+                this.props.toggleIsFetching(false)
             })
     }
 
     render() {
-        return <Users users={this.props.usersPage.users}
-                      follow={this.props.follow}
-                      unfollow={this.props.unfollow}
-                      onPageChanged={this.onPageChanged}
-                      setCurrentPortion={this.props.setCurrentPortion}
-                      currentPortion={this.props.currentPortion}
-                      pageSize={this.props.pageSize}
-                      totalCount={this.props.totalCount}
-                      currentPage={this.props.currentPage}
-        />
+        return (
+            <>
+                {this.props.isFetching ? <Preloader/> : null}
+                <Users users={this.props.usersPage.users}
+                       follow={this.props.follow}
+                       unfollow={this.props.unfollow}
+                       onPageChanged={this.onPageChanged}
+                       setCurrentPortion={this.props.setCurrentPortion}
+                       currentPortion={this.props.currentPortion}
+                       pageSize={this.props.pageSize}
+                       totalCount={this.props.totalCount}
+                       currentPage={this.props.currentPage}
+                />
+            </>
+        )
     }
 
 }

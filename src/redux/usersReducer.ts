@@ -4,6 +4,7 @@ const SET_USERS = 'SET_USERS';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_CURRENT_PORTION = 'SET_CURRENT_PORTION';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 type PhotosType = {
     small: string | null
@@ -21,7 +22,8 @@ const initialState = {
     totalUsersCount: 0,
     pageSize: 4,
     currentPage: 1,
-    currentPortion: 1
+    currentPortion: 1,
+    isFetching: true
 }
 export type InitialStateType = typeof initialState
 
@@ -49,15 +51,20 @@ export type SetCurrentPortionActionType = {
     type: typeof SET_CURRENT_PORTION
     currentPortion: number
 }
-type ActionsType =
+export type ToggleIsFetchingActionType = {
+    type: typeof TOGGLE_IS_FETCHING
+    isFetching: boolean
+}
+export type UsersActionsType =
     FollowActionType |
     UnfollowActionType |
     SetUsersActionType |
     SetTotalUsersCountActionType |
     SetCurrentPageActionType |
-    SetCurrentPortionActionType
+    SetCurrentPortionActionType |
+    ToggleIsFetchingActionType
 
-export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const usersReducer = (state: InitialStateType = initialState, action: UsersActionsType): InitialStateType => {
     switch(action.type) {
         case FOLLOW:
             return {
@@ -79,6 +86,8 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             return { ...state, currentPage: action.currentPage }
         case SET_CURRENT_PORTION:
             return { ...state, currentPortion: action.currentPortion }
+        case "TOGGLE_IS_FETCHING":
+            return {...state, isFetching: action.isFetching}
         default:
             return state;
     }
@@ -96,4 +105,5 @@ export const setCurrentPageAC = (currentPage: number): SetCurrentPageActionType 
     ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setCurrentPortionAC = (currentPortion: number): SetCurrentPortionActionType =>
     ({type: SET_CURRENT_PORTION, currentPortion} as const)
-
+export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetchingActionType =>
+    ({type: TOGGLE_IS_FETCHING, isFetching} as const)

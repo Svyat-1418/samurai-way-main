@@ -13,7 +13,7 @@ export type PostType = {
     message: string
     likesCount: number
 }
-type ActionsType =
+export type ProfileActionsType =
     AddPostActionType |
     UpdateNewPostTextActionType
 
@@ -27,7 +27,7 @@ const initialState = {
 }
 export type InitialStateType = typeof initialState
 
-export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
     switch (action.type) {
         case ADD_POST:
             return {

@@ -17,7 +17,7 @@ export type UpdateNewMessageTextActionType = {
     type: typeof UPDATE_NEW_MESSAGE_TEXT
     newText: string
 }
-type ActionsType =
+export type DialogsActionsType =
     SendMessageActionType |
     UpdateNewMessageTextActionType
 
@@ -38,7 +38,7 @@ const initialState = {
 }
 export type InitialStateType = typeof initialState
 
-export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const dialogsReducer = (state: InitialStateType = initialState, action: DialogsActionsType): InitialStateType => {
     switch (action.type) {
         case SEND_MESSAGE:
             return {
