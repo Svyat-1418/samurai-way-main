@@ -1,17 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
-import {AllAppActionsType, AppRootStateType} from "../../redux/reduxStore";
+import {AppRootStateType} from "../../redux/reduxStore";
 import {
-    followAC,
-    unfollowAC,
-    setUsersAC,
+    follow,
+    unfollow,
+    setUsers,
     UserType,
     InitialStateType,
-    setTotalCountAC,
-    setCurrentPageAC,
-    setCurrentPortionAC,
-    toggleIsFetchingAC
+    setTotalCount,
+    setCurrentPage,
+    setCurrentPortion,
+    toggleIsFetching
 } from "../../redux/usersReducer";
 import axios from "axios";
 import {Users} from "./Users";
@@ -45,31 +44,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         isFetching: state.usersPage.isFetching
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch<AllAppActionsType>): MapDispatchToPropsType => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId));
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowAC(userId));
-        },
-        setUsers: (users: Array<UserType>) => {
-            dispatch(setUsersAC(users));
-        },
-        setTotalCount: (totalCount: number) => {
-            dispatch(setTotalCountAC(totalCount))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-        setCurrentPortion: (currentPortion: number) => {
-            dispatch(setCurrentPortionAC(currentPortion))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(isFetching))
-        }
-    }
-}
+
 
 type GetUsersResponseType = {
     error: string | null
@@ -118,4 +93,6 @@ class UsersAPIComponent extends React.Component<MapStateToPropsType & MapDispatc
 
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+export const UsersContainer = connect(mapStateToProps, {
+    follow, unfollow, setUsers, setTotalCount, setCurrentPage, setCurrentPortion, toggleIsFetching
+})(UsersAPIComponent);

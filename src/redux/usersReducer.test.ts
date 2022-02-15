@@ -1,4 +1,4 @@
-import {followAC, InitialStateType, setUsersAC, unfollowAC, usersReducer, UserType} from "./usersReducer";
+import {follow, InitialStateType, setUsers, unfollow, usersReducer, UserType} from "./usersReducer";
 
 let startState: InitialStateType
 let testUsersSet: Array<UserType>
@@ -35,18 +35,18 @@ beforeEach(() => {
 
 test("follow on correct user", () => {
     startState.users = testUsersSet
-    const endState = usersReducer(startState, followAC(3))
+    const endState = usersReducer(startState, follow(3))
 
     expect(endState.users[2].followed).toBeTruthy()
 })
 test("unfollow on correct user", () => {
     startState.users = testUsersSet
-    const endState = usersReducer(startState, unfollowAC(2))
+    const endState = usersReducer(startState, unfollow(2))
 
     expect(endState.users[1].followed).toBeFalsy()
 })
 test("set correct users", () => {
-    const endState = usersReducer(startState, setUsersAC(testUsersSet))
+    const endState = usersReducer(startState, setUsers(testUsersSet))
 
     expect(endState.users).toStrictEqual(testUsersSet)
     expect(endState.users.length).toBe(testUsersSet.length)
