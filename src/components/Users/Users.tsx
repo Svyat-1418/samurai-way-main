@@ -3,6 +3,7 @@ import {Pagination} from "../Pagination/Pagination";
 import userPhoto from "../../assets/images/user-photo.png";
 import React from "react";
 import {UserType} from "../../redux/usersReducer";
+import {NavLink} from "react-router-dom";
 
 type PropsType = {
     users: Array<UserType>
@@ -30,7 +31,9 @@ export const Users = (props: PropsType) => {
             {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
+                        <NavLink to={`profile/${u.id}`}>
                         <img src={u.photos.small !== null ? u.photos.small : userPhoto} alt=""/>
+                        </NavLink>
                     </div>
                     <div>
                         {u.followed
@@ -43,7 +46,7 @@ export const Users = (props: PropsType) => {
                         }
                     </div>
                 </span>
-                    <span>
+                <span>
                     <span>
                         <div>{u.name}</div>
                         <div>{u.status}</div>
@@ -53,7 +56,7 @@ export const Users = (props: PropsType) => {
                         <div>{"u.location.city"}</div>
                     </span>
                 </span>
-                </div>)
+            </div>)
             }
         </div>
     )
