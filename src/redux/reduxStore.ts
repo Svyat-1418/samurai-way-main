@@ -3,12 +3,14 @@ import {ProfileActionsType, profileReducer} from "./profileReducer";
 import {DialogsActionsType, dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
 import {UsersActionsType, usersReducer} from "./usersReducer";
+import {authReducer} from "./authReducer";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer
 })
 
 export const store = createStore(rootReducer)

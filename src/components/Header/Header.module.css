@@ -2,9 +2,21 @@
     height: 200px;
     grid-area: head;
     background-color: #0a145B;
+    //display: flex;
+    //justify-content: space-between;
 }
 .logo {
     width: 60px;
     height: 60px;
     border-radius: 30px;
+
+}
+.loginBlock {
+    float: right;
+    color: whitesmoke
+
+}
+
+.loginBlock a {
+    color: whitesmoke;
 }
