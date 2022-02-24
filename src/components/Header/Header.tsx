@@ -9,7 +9,6 @@ type PropsType = {
 }
 
 export const Header = (props: PropsType) => {
-    debugger
     return (
         <header className={styles.header}>
             <img className={styles.logo}

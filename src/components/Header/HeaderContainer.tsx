@@ -29,7 +29,6 @@ class HeaderContainer extends React.Component<MapStateToPropsType & MapDispatchT
         axios.get<{data: AuthMeResponseType, resultCode: number}>
         (`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
             .then((res) => {
-                debugger
                 if (res.data.resultCode === 0) {
                     const {id, email, login} = res.data.data
                     this.props.setAuthUserData(id, email, login)
