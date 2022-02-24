@@ -10,7 +10,7 @@ import {
     setTotalCount,
     setCurrentPage,
     setCurrentPortion,
-    toggleIsFetching
+    toggleIsFetching, toggleIsFollowingProgress
 } from "../../redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
@@ -23,6 +23,7 @@ export type MapStateToPropsType = {
     totalCount: number
     currentPortion: number
     isFetching: boolean
+    followingInProgress: Array<number>
 }
 export type MapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -32,6 +33,7 @@ export type MapDispatchToPropsType = {
     setCurrentPage: (currentPage: number) => void
     setCurrentPortion: (currentPortion: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
 }
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
@@ -41,7 +43,8 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         currentPage: state.usersPage.currentPage,
         totalCount: state.usersPage.totalUsersCount,
         currentPortion: state.usersPage.currentPortion,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -79,6 +82,8 @@ class UsersAPIComponent extends React.Component<MapStateToPropsType & MapDispatc
                        pageSize={this.props.pageSize}
                        totalCount={this.props.totalCount}
                        currentPage={this.props.currentPage}
+                       followingInProgress={this.props.followingInProgress}
+                       toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
                 />
             </>
         )
@@ -87,5 +92,5 @@ class UsersAPIComponent extends React.Component<MapStateToPropsType & MapDispatc
 }
 
 export const UsersContainer = connect(mapStateToProps, {
-    follow, unfollow, setUsers, setTotalCount, setCurrentPage, setCurrentPortion, toggleIsFetching
+    follow, unfollow, setUsers, setTotalCount, setCurrentPage, setCurrentPortion, toggleIsFetching, toggleIsFollowingProgress
 })(UsersAPIComponent);
