@@ -21,9 +21,23 @@ export const usersAPI = {
     },
     unfollow(userId: number) {
         return instance.delete<{ resultCode: number }>(`follow/${userId}`)
+    },
+    getProfile(userId: number) {
+        return instance.get(`profile/${userId}`)
     }
 }
 
+export const authAPI = {
+    me() {
+        return instance.get<{data: AuthMeResponseType, resultCode: number}>(`auth/me`)
+    }
+}
+
+type AuthMeResponseType = {
+    id: number
+    email: string
+    login: string
+}
 type GetUsersResponseType = {
     error: string | null
     totalCount: number
