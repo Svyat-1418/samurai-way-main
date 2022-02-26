@@ -1,4 +1,5 @@
 import {usersAPI} from "../api/api";
+import {AppThunk} from "./reduxStore";
 
 const ADD_POST = "ADD_POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT"
@@ -85,7 +86,7 @@ export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionTyp
 const setUserProfile = (profile: ProfileType | null): SetUserProfileActionType =>
     ({type: SET_USER_PROFILE, profile} as const)
 
-export const getUserProfile = (userId: number) => (dispatch: any) => {
+export const getUserProfile = (userId: number): AppThunk => (dispatch) => {
     usersAPI.getProfile(userId)
         .then((res) => {
 

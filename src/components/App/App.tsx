@@ -7,6 +7,7 @@ import {UsersContainer} from "../Users/UsersContainer";
 import {NavbarContainer} from "../Navbar/NavbarContainer";
 import ProfileContainer from "../Profile/ProfileContainer";
 import HeaderContainer from '../Header/HeaderContainer';
+import { Login } from '../Login/Login';
 
 const App = () => {
     return (
@@ -20,7 +21,7 @@ const App = () => {
                            render={ () => <ProfileContainer /> }/>
                     <Route path='/users'
                            render={ () => <UsersContainer /> }/>
-
+                    <Route path='/login' render={() => <Login />} />
 
                 </div>
             </div>

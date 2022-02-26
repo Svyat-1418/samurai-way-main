@@ -3,9 +3,11 @@ import styles from './Dialogs.module.css';
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 import {InitialStateType} from "../../redux/dialogsReducer";
+import {Redirect} from "react-router-dom";
 
 type PropsType = {
     dialogsPage: InitialStateType
+    isAuth: boolean
     sendMessage: () => void
     updateNewMessageText: (newText: string) => void
 }
@@ -18,6 +20,8 @@ export const Dialogs = (props: PropsType) => {
         const text = e.currentTarget.value
         props.updateNewMessageText(text)
     }
+
+    if (!props.isAuth) return <Redirect to={'/login'} />
 
     return (
         <div className={styles.dialogsPage}>

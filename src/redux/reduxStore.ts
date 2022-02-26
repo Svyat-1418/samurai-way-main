@@ -3,8 +3,8 @@ import {ProfileActionsType, profileReducer} from "./profileReducer";
 import {DialogsActionsType, dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
 import {UsersActionsType, usersReducer} from "./usersReducer";
-import {authReducer} from "./authReducer";
-import thunk from "redux-thunk";
+import {AuthActionsType, authReducer} from "./authReducer";
+import thunk, {ThunkAction} from "redux-thunk";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -23,7 +23,10 @@ export type ReduxStoreType = typeof store
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 //тип всех action-ов приложения
-export type AllAppActionsType = UsersActionsType | DialogsActionsType | ProfileActionsType
+export type AllAppActionsType = UsersActionsType | DialogsActionsType | ProfileActionsType | AuthActionsType
+
+//типизация для thunk
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AllAppActionsType>
 
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
 // @ts-ignore
