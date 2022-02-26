@@ -1,9 +1,10 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {ProfileActionsType, profileReducer} from "./profileReducer";
 import {DialogsActionsType, dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
 import {UsersActionsType, usersReducer} from "./usersReducer";
 import {authReducer} from "./authReducer";
+import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -13,7 +14,7 @@ const rootReducer = combineReducers({
     auth: authReducer
 })
 
-export const store = createStore(rootReducer)
+export const store = createStore(rootReducer, applyMiddleware(thunk))
 
 // определить автоматически тип всего объекта store
 export type ReduxStoreType = typeof store
