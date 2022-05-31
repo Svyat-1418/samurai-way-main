@@ -10,6 +10,8 @@ import {
 } from "../../redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type MapStateToPropsType = {
     usersPage: InitialStateType
@@ -68,5 +70,7 @@ class UsersAPIComponent extends React.Component<MapStateToPropsType & MapDispatc
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
-    follow, unfollow, getUsers, setCurrentPortion})(UsersAPIComponent);
+export const UsersContainer = compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, {
+    follow, unfollow, getUsers, setCurrentPortion}))(UsersAPIComponent)
