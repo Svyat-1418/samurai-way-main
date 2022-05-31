@@ -3,8 +3,8 @@ import styles from "./News.module.css";
 
 export const News = () => {
     return (
-        <div className={styles.newsPage}>
+        <h1 className={styles.newsPage}>
             News
-        </div>
+        </h1>
     )
 }

@@ -3,8 +3,8 @@ import serles from "./Music.module.css"
 
 export const Music = () => {
     return (
-        <div className={serles.musicPage}>
+        <h1 className={serles.musicPage}>
             Music
-        </div>
+        </h1>
     )
 }

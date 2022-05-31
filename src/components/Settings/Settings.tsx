@@ -4,8 +4,8 @@ import styles
 
 export const Settings = () => {
     return (
-        <div className={styles.settingsPage}>
+        <h1 className={styles.settingsPage}>
             Settings
-        </div>
+        </h1>
     )
 }
