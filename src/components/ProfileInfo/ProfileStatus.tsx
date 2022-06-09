@@ -32,6 +32,18 @@ export class ProfileStatus extends React.Component<PropsType, StateType> {
         })
     }
 
+    // componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+    //     if (prevProps.status !== this.props.status) {
+    //         this.setState({status: this.props.status})
+    //     }
+    // }
+
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({status: this.props.status})
+        }
+    }
+
     render() {
         return this.state.editMode
             ? <input value={this.state.status}
